@@ -1,0 +1,11 @@
+.sqr-img {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+}
+
+.sqr-img img {
+    height: 100%;
+    transform: translateX(-50%);
+    margin-left: 50%;
+}  
