@@ -28,7 +28,7 @@ class Routes {
          * ucwords - Convert to upperCase first 
          * character of each word
          */
-        if (file_exists('../app/controllers/'.ucwords($url[0]).'.php')):
+        if (file_exists('../app/Controllers/'.ucwords($url[0]).'.php')):
             // if exists, it sets as controller
             $this->controller = ucwords($url[0]);
             // unset - 'Destroy' a especific var

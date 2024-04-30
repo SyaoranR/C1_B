@@ -10,7 +10,7 @@
 //     'HOST' => 'localhost',
 //     'USER' => 'root',
 //     'SENHA' => '',
-//     'DB_NAME' => 'c1',
+//     'DB_NAME' => 'c1_b',
 //     'PORT' => '3306'
 // ]); OR BELOW
 
@@ -18,21 +18,21 @@ const db = [
     'HOST' => 'localhost',
     'USER' => 'root',
     'SENHA' => '',
-    'DB_NAME' => 'c1',
+    'DB_NAME' => 'c1_b',
     'PORT' => '3306'
 ];
 
 //define('HOST', 'localhost');
 //define('USER', 'root');
 //define('SENHA', '');
-//define('DB_NAME', 'c1');
+//define('DB_NAME', 'c1_b');
 //define('PORT', '3306');
 
 define('APP', dirname(__FILE__));
 
-define('URL', 'http://localhost/C1_v3');
+define('URL', 'http://localhost/C1_B');
 
-define('APP_NAME', 'Curso PHP7');
+define('APP_NAME', 'Object Oriented PHP7 and MVC Course');
 
 const APP_VER = '1.2.0';
 
