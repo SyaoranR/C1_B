@@ -6,7 +6,7 @@
 spl_autoload_register(function ($classe) {
 
     // directories list
-    $diretorios = ['Library', 'Helper'];
+    $diretorios = ['Libraries', 'Helpers'];
 
     // iterates directories in classes' search
     foreach ($diretorios as $diretorio) :
