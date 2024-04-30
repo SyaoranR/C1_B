@@ -3,7 +3,7 @@
 // Responsible for database communication
 // It is conventional having the same name 'like' an entity
 
-class Categoria
+class Category
 {
     private $db;
     private $table = 'categories';
@@ -22,7 +22,7 @@ class Categoria
     }
     
    
-    // saving categoria at db
+    // saving category at db
     public function save($data)
     {
                 

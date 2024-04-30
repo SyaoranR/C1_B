@@ -100,7 +100,7 @@ class Posts extends Controller {
              else :
  
                  if ($this->postModel->update($data)) :
-                     // echo 'Cadastro realizado com sucesso<hr>';
+                     // echo 'Post successfully edited<hr>';
                      Session::msg('post', 'Post successfully edited');
                      // header('Location: '.Url.'');
                      Url::redirect('posts');

@@ -9,7 +9,7 @@
 // define('db', [
 //     'HOST' => 'localhost',
 //     'USER' => 'root',
-//     'SENHA' => '',
+//     'PASS' => '',
 //     'DB_NAME' => 'c1_b',
 //     'PORT' => '3306'
 // ]); OR BELOW
@@ -17,14 +17,14 @@
 const db = [
     'HOST' => 'localhost',
     'USER' => 'root',
-    'SENHA' => '',
+    'PASS' => '',
     'DB_NAME' => 'c1_b',
     'PORT' => '3306'
 ];
 
 //define('HOST', 'localhost');
 //define('USER', 'root');
-//define('SENHA', '');
+//define('PASS', '');
 //define('DB_NAME', 'c1_b');
 //define('PORT', '3306');
 

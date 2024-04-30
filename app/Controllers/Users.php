@@ -54,7 +54,7 @@ class Users extends Controller {
                 $data['bio'] = $user->bio;
             endif;
 
-             //checa se existe campos em branco
+             // if empty
              if (empty($form['username']) || empty($form['email'])) :
 
                 if (empty($form['username'])) :

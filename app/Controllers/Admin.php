@@ -25,7 +25,7 @@ class Admin extends Controller
        $this->view('admin/index');
     }
 
-    /* checa e cadastra posts */
+    /* check and register posts */
     public function register()
     {
 
@@ -98,7 +98,7 @@ class Admin extends Controller
                 endif;
 
                 if (empty($form['txt'])) :
-                    $data['txt_err'] = 'Fill the campo text field';
+                    $data['txt_err'] = 'Fill the text field';
                 endif;
 
             else :
