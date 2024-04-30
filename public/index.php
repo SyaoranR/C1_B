@@ -18,8 +18,8 @@ include './../app/autoload.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">    
     <link href="<?=URL?>/public/css/styles.css" rel="stylesheet">
-    <link rel="shortcut icon" href="<?= URL ?>/public/imgs/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="<?= URL ?>/public/imgs/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="<?= URL ?>/public/imgs/icon.png" type="image/x-icon">
+    <link rel="icon" href="<?= URL ?>/public/imgs/icon.png" type="image/x-icon">
 </head>
 <body>
 

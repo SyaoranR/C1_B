@@ -51,6 +51,10 @@
                             </div>
                             
                             <div class="form-group">
+                                <label for="facebook">Facebook:</label>
+                                <input type="text" name="facebook" id="facebook" value="<?= $dados['facebook'] ?>" class="form-control">
+                            </div>
+                            <div class="form-group">
                                 <label for="youtube">YouTube:</label>
                                 <input type="text" name="youtube" id="youtube" value="<?= $dados['youtube'] ?>" class="form-control">
                             </div>
