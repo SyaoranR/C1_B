@@ -1,4 +1,4 @@
-<header class="bg-dark">
+<header>
 <div class="container">
         <nav class="navbar navbar-expand-sm">
             <a class="navbar-brand" href="<?= URL ?>">
@@ -23,7 +23,7 @@
                 
                 <?php if (isset($_SESSION['user_id'])) : ?>
                     <span class="navbar-text">
-                        <p>Hello, <?= $_SESSION['user_name'] ?>, Welcome</p>
+                        <p class="text-white">Hello, <?= $_SESSION['user_name'] ?>, Welcome</p>
                         <a class="btn btn-sm btn-danger" href="<?= URL ?>/users/logout" data-toggle="tooltip" title="Logout">Logout</a>
 
                         <a class="btn btn-sm btn-primary" href="<?= URL ?>/users/profile/<?= $_SESSION['user_id'] ?>" data-toggle="tooltip" title="User Panel">Profile</a>
