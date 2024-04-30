@@ -6,23 +6,32 @@
                 <li class="breadcrumb-item active" aria-current="page"><?= $data['post']->title ?></li>
             </ol>
         </nav>
-
         <div class="row">
             <div class="col-lg-8">
-                
-                <div class="card text-center">
-                    <div class="card-header bg-secondary text-white font-weight-bold">
-                        <?= $data['post']->title ?>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text"><?= $data['post']->txt ?></p>
-                    </div>
-                    <div class="card-footer text-muted">
-                        <small>
-                            Written by: <b><?= $data['author']->username ?></b> em <?= Check::brDate($data['post']->created_at) ?>                    
-                        </small>
-                    </div>           
-                </div>
+                <article class="posts">
+                    <?php if (!empty($data['post']->cover)) : ?>
+                        <div class="postImg zoom">
+                            <img class="img-fluid" src="<?= $data['post']->cover ?>" alt="<?= $data['post']->title ?>" title="<?= $data['post']->title ?>">
+                        </div>
+                        <div class="postResumo">
+                            <div class="postTexto">
+                                <h2><?= $data['post']->title ?></h2>
+                                <p><?= $data['post']->txt ?></p>
+                                <small>
+                                Written by: <b><?= $data['author']->username ?></b> at <?= Check::brDate($data['post']->created_at) ?>                    
+                            </small>
+                            </div>
+                        </div>
+                    <?php else : ?>
+                        <div class="postSemCapa">
+                            <h2><?= $data['post']->title ?></h2>
+                            <p><?= $data['post']->txt ?></p>
+                            <small>
+                                Written by: <b><?= $data['author']->username ?></b> at <?= Check::brDate($data['post']->created_at) ?>                    
+                            </small>
+                        </div>
+                    <?php endif ?>
+                </article>           
 
             </div>
             <div class="col-lg-4">

@@ -1,6 +1,6 @@
 <div class="col-xl-4 col-md-6 mx-auto p-5">
     <div class="card">
-        <div class="card-header bg-secondary text-white">
+        <div class="card-header primaryBg text-white">
             Register
         </div>
         <div class="card-body">
@@ -43,7 +43,7 @@
                 
                     <div class="col-md-6">
                         <div class="d-grid gap-2">
-                            <input type="submit" value="Register" class="btn btn-info">
+                            <input type="submit" value="Register" class="btn btn-block">
                         </div>
                     </div>
 

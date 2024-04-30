@@ -1,6 +1,7 @@
 <?php
 
 class User {
+
     private $db;
 
     public function __construct()
@@ -22,6 +23,7 @@ class User {
 
     public function save($data) {
         $this->db->query("INSERT INTO users(username, email, pass) VALUES (:username, :email, :pass)");
+
         $this->db->bind("username", $data['username']);
         $this->db->bind("email", $data['email']);
         $this->db->bind("pass", $data['pass']);
@@ -34,12 +36,16 @@ class User {
     }
 
     public function update($data) {
-        $this->db->query("UPDATE users SET username = :username, email = :email, pass = :pass, bio = :bio WHERE id = :id");
+        $this->db->query("UPDATE users SET avatar = :avatar, username = :username, email = :email, pass = :pass, bio = :bio, facebook = :facebook, youtube = :youtube, instagram = :instagram WHERE id = :id");
         $this->db->bind("id", $data['id']);
         $this->db->bind("username", $data['username']);
         $this->db->bind("email", $data['email']);
         $this->db->bind("pass", $data['pass']);
         $this->db->bind("bio", $data['bio']);
+        $this->db->bind("facebook", $data['facebook']);
+        $this->db->bind("youtube", $data['youtube']);
+        $this->db->bind("instagram", $data['instagram']);
+
 
         if($this->db->exec()):
             return true;

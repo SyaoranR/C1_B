@@ -3,7 +3,9 @@
 // Data and Communication Control with post model
 
 class Post {
+
     private $db;
+    private $table = 'posts';
 
     public function __construct()
     {
@@ -19,7 +21,7 @@ class Post {
         posts.created_at as postRegisterDate,
         users.id as userId,
         users.created_at as userRegisterDate
-         FROM posts
+         FROM {$this->table}
          INNER JOIN users ON 
          posts.user_id = users.id
          ORDER BY posts.id DESC");
@@ -28,7 +30,8 @@ class Post {
 
     // saving post at db
     public function save($data) {
-        $this->db->query("INSERT INTO posts(title, txt, user_id) VALUES (:title, :txt, :user_id)");
+        $this->db->query("INSERT INTO {$this->table} (title, txt, user_id) VALUES (:title, :txt, :user_id)");
+
         $this->db->bind("title", $data['title']);
         $this->db->bind("txt", $data['txt']);
         $this->db->bind("user_id", $data['user_id']);
@@ -41,7 +44,8 @@ class Post {
     }
 
     public function update($data) {
-        $this->db->query("UPDATE posts SET title = :title, txt = :txt WHERE id = :id");
+        $this->db->query("UPDATE {$this->table} SET title = :title, txt = :txt WHERE id = :id");
+        
         $this->db->bind("id", $data['id']);
         $this->db->bind("title", $data['title']);
         $this->db->bind("txt", $data['txt']);
@@ -55,7 +59,7 @@ class Post {
     }
 
     public function readPostById($id){
-        $this->db->query("SELECT * FROM posts WHERE id = :id");
+        $this->db->query("SELECT * FROM {$this->table} WHERE id = :id");
         $this->db->bind('id', $id);
         
         return $this->db->result();
@@ -64,7 +68,7 @@ class Post {
     public function delete($id) {
         // var_dump($id);
 
-        $this->db->query("DELETE FROM posts WHERE id = :id");
+        $this->db->query("DELETE FROM {$this->table} WHERE id = :id");
 
         $this->db->bind("id", $id);                
 

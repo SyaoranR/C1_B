@@ -9,6 +9,7 @@ class Posts extends Controller {
          // Calling database communication models 
          $this->postModel = $this->model('Post');
          $this->userModel = $this->model('User');
+         $this->categoryModel = $this->model('Category');
     }
 
     public function index() {
@@ -33,11 +34,11 @@ class Posts extends Controller {
             if (in_array("", $form)) :
 
                 if (empty($form['title'])) :
-                    $data['title_err'] = 'Inform Title';
+                    $data['title_err'] = 'Type a Title';
                 endif;
 
                 if (empty($form['txt'])) :
-                    $data['txt_err'] = 'Type text';
+                    $data['txt_err'] = 'Type a text';
                 endif;
 
             else :
@@ -75,7 +76,7 @@ class Posts extends Controller {
      public function edit($id)
      {
  
-         // receiving form's data and filtering it
+        // receiving form's data and filtering it
         // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
         // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -89,11 +90,11 @@ class Posts extends Controller {
              if (in_array("", $form)) :
  
                  if (empty($form['title'])) :
-                     $data['title_err'] = 'Informe titleo';
+                     $data['title_err'] = 'Type a title';
                  endif;
  
                  if (empty($form['txt'])) :
-                     $data['txt_err'] = 'Type text';
+                     $data['txt_err'] = 'Type a text';
                  endif;
  
              else :
@@ -148,11 +149,13 @@ class Posts extends Controller {
         // calling method to read user by Id at userModel
         $author = $this->userModel->readUserById($post->user_id);
         $admin = $this->userModel->readAdmin();
+        $categories = $this->userModel->readCategories();
 
         // defining data view
         $data = [
             'post' => $post,
             'author' => $author,
+            'categories' => $categories,
             'admin' => $admin
         ];
 

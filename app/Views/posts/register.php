@@ -9,7 +9,7 @@
     </nav>
 
     <div class="card">
-        <div class="card-header bg-secondary text-white">
+        <div class="card-header secondaryBg text-white">
             Send Post
         </div>
         <div class="card-body bg-light">

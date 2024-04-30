@@ -31,6 +31,13 @@ class Users extends Controller {
                 'email' => trim($form['email']),
                 'pass' => trim($form['pass']),
                 'bio' => trim($form['bio']),
+                'bio' => trim($form['bio']),
+                'facebook' => trim($form['facebook']),
+                'youtube' => trim($form['youtube']),
+                'instagram' => trim($form['instagram']),
+                'name_err' => '',
+                'email_err' => '',
+                'pass_err' => ''
             ];
 
             // empty field checking
@@ -47,44 +54,48 @@ class Users extends Controller {
                 $data['bio'] = $user->bio;
             endif;
 
-            // are there empty fields
-            if (in_array("", $data)) :
+             //checa se existe campos em branco
+             if (empty($form['username']) || empty($form['email'])) :
 
                 if (empty($form['username'])) :
-                    $data['username_err'] = 'Fill the name field';
+                    $dados['username_err'] = 'Fill the name field';
                 endif;
 
                 if (empty($form['email'])) :
-                    $data['email_err'] = 'Fill the e-mail field';
+                    $dados['email_err'] = 'Fill the e-mail field ';
                 endif;
 
             else :
-                // is form email == to user's db email
+                // is email equal to db's
                 if ($form['email'] == $user->email) :
                     $this->userModel->update($data);
-                    Session::msg('user', 'Profile Updated');
-                // not registered at db?
-                elseif (!$this->userModel->emailChecking($form['email'])) :
+                    Session::msg('user', 'Profile updated successfully');
+                // is email already in database
+                elseif (!$this->userModel->emailCheck($form['email'])) :
                     $this->userModel->update($data);
-                    Session::msg('user', 'Profile Updated');
+                    Session::msg('user', 'Profile updated successfully');
                 else :
                     $data['email_err'] = 'Informed e-mail already exist';
                 endif;
 
             endif;
         else :
-            // auth checking
+            // is user authorized to edit profile
             if ($user->id != $_SESSION['user_id']) :
-                Session::msg('post', 'This user cannot edit this profile', 'alert alert-danger');
+                Session::msg('post', "You're not allowed to edit this profile", 'alert alert-danger');
                 Url::redirect('posts');
             endif;
 
             //defining view data
             $data = [
                 'id' => $user->id,
+                'avatar' => $user->avatar,
                 'username' => $user->username,
                 'email' => $user->email,
                 'bio' => $user->bio,
+                'facebook' => $user->facebook,
+                'youtube' => $user->youtube,
+                'instagram' => $user->instagram,
                 'username_err' => '',
                 'email_err' => '',
                 'pass_err' => ''
@@ -126,7 +137,7 @@ class Users extends Controller {
                 endif;
 
                 if (empty($form['pass_confirm'])) :
-                    $data['pass_confirm_err'] = 'Password confirm';
+                    $data['pass_confirm_err'] = 'Confirm password';
                 endif;
             else :
 
@@ -253,6 +264,7 @@ class Users extends Controller {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_name'] = $user->username;
         $_SESSION['user_email'] = $user->email;
+        $_SESSION['user_level'] = $user->level;
 
         // header('Location: '.URL.'');               
         // UNCOMMENT WHEN NOT IN DEVELOPMENT
@@ -264,6 +276,7 @@ class Users extends Controller {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_name']);
         unset($_SESSION['user_email']);
+        unset($_SESSION['user_level']);
 
         // destroys all registered session data
         session_destroy();

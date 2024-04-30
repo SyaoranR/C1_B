@@ -1,11 +1,15 @@
 <header class="bg-dark">
-    <div class="container">
-        <nav class="navbar navbar-expand-sm navbar-dark">        
-            <a class="navbar-brand" href="<?=URL?>"><img class="sqr-img" src="<?=URL?>/public/imgs/logo.png"></a>
+<div class="container">
+        <nav class="navbar navbar-expand-sm">
+            <a class="navbar-brand" href="<?= URL ?>">
+                <div class="zoom">
+                    <img class="img-fluid logo" src="<?= URL ?>public/imgs/logo.png" alt="<?= APP_NAME ?>" title="<?= APP_NAME ?>">
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
@@ -16,26 +20,21 @@
                     </li>
                 </ul>
 
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    
-                    <?php if (isset($_SESSION['user_id'])) : ?>
-                        <span class="navbar-text">
-                            <p>Hello, <?= $_SESSION['user_name'] ?>, Welcome</p>
-                            <a class="btn btn-sm btn-danger" href="<?= URL ?>/users/logout" data-toggle="tooltip" title="Logout">Logout</a>
+                
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                    <span class="navbar-text">
+                        <p>Hello, <?= $_SESSION['user_name'] ?>, Welcome</p>
+                        <a class="btn btn-sm btn-danger" href="<?= URL ?>/users/logout" data-toggle="tooltip" title="Logout">Logout</a>
 
-                            <a class="btn btn-sm btn-primary" href="<?= URL ?>/users/profile/<?= $_SESSION['user_id'] ?>" data-toggle="tooltip" title="User Panel">Profile</a>
-                        </span>
-
-                    <?php else : ?>
-                        <span class="navbar-text">
-                            <a class="btn btn-info" href="<?= URL ?>/users/register" data-tooltip="tooltip" title="Don't have an account? Sign Up">Sign Up</a>
-                            <a class="btn btn-info" href="<?= URL ?>/users/login" data-tooltip="tooltip" title="Already have an account? Login">Sign In</a>         
-                        </span>
-                    <?php endif; ?>
-                    
-                </div>
+                        <a class="btn btn-sm btn-primary" href="<?= URL ?>/users/profile/<?= $_SESSION['user_id'] ?>" data-toggle="tooltip" title="User Panel">Profile</a>
+                        <?php if ($_SESSION['user_level'] == 3) : ?>
+                            <a class="btn btn-sm btn-dark" href="<?= URL ?>/admin/index" data-toggle="tooltip" title="Administrator Panel">Admin</a>
+                        <?php endif; ?>
+                    </span>                   
+                <?php endif; ?>       
                                 
             </div>
         </nav>
     </div>
 </header>
+<div class="clearfix"></div>

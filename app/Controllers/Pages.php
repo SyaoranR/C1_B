@@ -7,12 +7,14 @@ class Pages extends Controller {
          // Calling database communication models 
          $this->postModel = $this->model('Post');
          $this->userModel = $this->model('User');
+         $this->categoryModel = $this->model('Category');
     }
 
     public function index() {     
         
         $posts = $this->postModel->readPosts();
         $admin = $this->userModel->readAdmin();
+        $categories = $this->categoryModel->readCategories();
         
         if ($posts == null) :
             Session::msg('post', 'No post registered.', 'alert alert-info');
@@ -21,7 +23,8 @@ class Pages extends Controller {
         // defines data for posts
         $data = [
             'posts' => $posts,
-            'admin' => $admin
+            'admin' => $admin,
+            'categories' => $categories,
         ];
 
         // defines view to show posts
@@ -32,7 +35,7 @@ class Pages extends Controller {
 
     public function about() {
         $data = [
-            'title' => 'About Us'
+            'title' => APP_NAME
             //'descricao' => 'Curso PHP7'
         ];
 

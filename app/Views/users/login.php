@@ -1,6 +1,6 @@
 <div class="col-xl-4 col-md-6 mx-auto p-5">
     <div class="card">
-        <div class="card-header bg-secondary text-white">
+        <div class="card-header primaryBg text-white">
             Login
         </div>
         <div class="card-body">
@@ -26,7 +26,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="submit" value="Login" class="btn btn-info btn-block">
+                        <input type="submit" value="Login" class="btn secondaryBg btn-block">
                     </div>
                     <div class="col-md-6">
                         <a href="<?=URL?>/users/register">Don't have an account? Register</a>
