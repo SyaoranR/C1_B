@@ -149,7 +149,7 @@ class Posts extends Controller {
         // calling method to read user by Id at userModel
         $author = $this->userModel->readUserById($post->user_id);
         $admin = $this->userModel->readAdmin();
-        $categories = $this->userModel->readCategories();
+        $categories = $this->categoryModel->readCategories();
 
         // defining data view
         $data = [

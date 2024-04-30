@@ -42,7 +42,7 @@
         <small>
             <div class="row border-top py-2 mt-3">
                 <div class="col-md-9">
-                    &COPY; Copyright 2020 - <?= date('Y') ?> All Rights Reserved. <?= APP_NAME ?> <a href="https://www.unset.com.br" title="<?= APP_NAME ?>">www.unset.com.br</a>
+                    &COPY; Copyright 2020 - <?= date('Y') ?> All Rights Reserved. <?= APP_NAME ?> <a href="https://www.alex.com.br" title="<?= APP_NAME ?>">www.alex.com.br</a>
                 </div>
                 <div class="col-md-3 text-right">
                     UnSet Version: <?= APP_VER ?>

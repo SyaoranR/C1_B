@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-sm">
             <a class="navbar-brand" href="<?= URL ?>">
                 <div class="zoom">
-                    <img class="img-fluid logo" src="<?= URL ?>public/imgs/logo.png" alt="<?= APP_NAME ?>" title="<?= APP_NAME ?>">
+                    <img class="img-fluid logo" src="<?= URL ?>/public/imgs/logo.png" alt="<?= APP_NAME ?>" title="<?= APP_NAME ?>">
                 </div>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
