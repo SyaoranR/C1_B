@@ -27,6 +27,7 @@ class Users extends Controller {
             // defining data
             $data = [
                 'id' => $id,
+                'avatar' => trim($form['avatar']),
                 'username' => trim($form['username']),
                 'email' => trim($form['email']),
                 'pass' => trim($form['pass']),
@@ -35,7 +36,7 @@ class Users extends Controller {
                 'facebook' => trim($form['facebook']),
                 'youtube' => trim($form['youtube']),
                 'instagram' => trim($form['instagram']),
-                'name_err' => '',
+                'username_err' => '',
                 'email_err' => '',
                 'pass_err' => ''
             ];
@@ -58,11 +59,11 @@ class Users extends Controller {
              if (empty($form['username']) || empty($form['email'])) :
 
                 if (empty($form['username'])) :
-                    $dados['username_err'] = 'Fill the name field';
+                    $data['username_err'] = 'Fill the name field';
                 endif;
 
                 if (empty($form['email'])) :
-                    $dados['email_err'] = 'Fill the e-mail field ';
+                    $data['email_err'] = 'Fill the e-mail field ';
                 endif;
 
             else :
@@ -119,6 +120,10 @@ class Users extends Controller {
                 'email' => trim($form['email']),
                 'pass' => trim($form['pass']),
                 'pass_confirm' => trim($form['pass_confirm']),
+                'username_err' => '',
+                'email_err' => '',
+                'pass_err' => '',
+                'pass_confirm_err' => ''
             ];
 
             // empty field checking

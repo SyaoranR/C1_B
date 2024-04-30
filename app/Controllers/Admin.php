@@ -12,6 +12,10 @@ class Admin extends Controller
         $this->userModel = $this->model('User');
         $this->categoryModel = $this->model('Category');
 
+        // add methods from model to vars 
+        $this->posts = $this->postModel->readPosts();
+        $this->categories = $this->categoryModel->readCategories();
+
         $admin = $this->userModel->readAdmin();
         if(!$admin->level == $_SESSION['user_level']){
             session_destroy();
@@ -45,7 +49,7 @@ class Admin extends Controller
             $this->postEdit($id);
         } elseif ($type == 'category') {
             // call category edit method
-            // $this->categoryEdit($id);
+            $this->categoryEdit($id);
         } else {
             Url::redirect("pages/error");
         }
@@ -58,7 +62,7 @@ class Admin extends Controller
             $this->postDelete($id);
         } elseif ($type == 'categoria') {
             // call category delete method
-            // $this->categoryDelete($id);
+            $this->categoryDelete($id);
         } else {
             Url::redirect('pages/error');
         }
@@ -68,10 +72,10 @@ class Admin extends Controller
     {
         if ($type == 'posts') {
             // call post list method
-            // $this->postsList();
+            $this->postsList();
         } elseif ($type == 'categories') {
             // call categories list method
-            // $this->categoriesList();
+            $this->categoriesList();
         } else {
             Url::redirect('pages/error');
         }
@@ -109,8 +113,8 @@ class Admin extends Controller
                     $data['title_err'] = 'Fill the title field';
                 endif;
 
-                if (empty($form['txt'])) :
-                    $data['txt_err'] = 'Fill the text field';
+                if (empty($form['descr'])) :
+                    $data['descr_err'] = 'Fill the text field';
                 endif;
 
             else :
@@ -118,7 +122,7 @@ class Admin extends Controller
                 if ($this->postModel->save($data)) :
                     // echo 'Post Registered Successfully<hr>';
                     Session::msg('post', 'Post Registered Successfully');
-                    Url::redirect('posts');
+                    Url::redirect('admin/list/posts');
                 else :
                     die("Error saving post at database");
                 endif;
@@ -126,13 +130,13 @@ class Admin extends Controller
             endif;
         else :
             $data = [
-                // 'categories' => $this->categories,
+                'categories' => $this->categories,
                 'title' => '',
-                'txt' => '',
+                'descr' => '',
 
                 'category_err' => '',
                 'title_err' => '',
-                'txt_err' => ''
+                'descr_err' => ''
             ];
 
         endif;
@@ -151,9 +155,9 @@ class Admin extends Controller
         if (isset($form)) :
             $data = [
                 'title' => trim($form['title']),
-                'txt' => trim($form['txt']),
+                'descr' => trim($form['descr']),
                 'title_err' => '',
-                'txt_err' => ''
+                'descr_err' => ''
             ];
 
             // null fields check
@@ -163,8 +167,8 @@ class Admin extends Controller
                     $data['title_err'] = 'Type title';
                 endif;
 
-                if (empty($form['txt'])) :
-                    $data['txt_err'] = 'Type a text';
+                if (empty($form['descr'])) :
+                    $data['descr_err'] = 'Type a text';
                 endif;
 
             else :
@@ -184,10 +188,10 @@ class Admin extends Controller
         else :
             $data = [
                 'title' => '',
-                'txt' => '',
+                'descr' => '',
 
                 'title_err' => '',
-                'txt_err' => '',
+                'descr_err' => '',
             ];
         endif;
 
@@ -208,8 +212,11 @@ class Admin extends Controller
         if (isset($form)) :
             $data = [
                 'id' => $id,
+                'category_id' => trim($form['category']),
                 'title' => trim($form['title']),
-                'txt' => trim($form['txt'])
+                'txt' => trim($form['txt']),
+                'title_err' => '',
+                'txt_err' => ''
             ];
 
             if (in_array("", $form)) :
@@ -227,7 +234,7 @@ class Admin extends Controller
                     // echo 'Post successfully edited<hr>';
                     Session::msg('post', 'Post successfully edited');
                     // header('Location: '.Url.'');
-                    Url::redirect('posts');
+                    Url::redirect('admin/list/posts');
                 else :
                     die("Error editing post");
                 endif;
@@ -244,6 +251,8 @@ class Admin extends Controller
 
             $data = [
                 'id' => $post->id,
+                'categories' => $this->categories,
+                'category_id' => $post->category_id,
                 'title' => $post->title,
                 'txt' => $post->txt,
                 'title_err' => '',
@@ -252,33 +261,62 @@ class Admin extends Controller
 
         endif;
 
-        $this->view('posts/edit', $data);
+        $this->view('admin/posts/edit', $data);
     }
 
-
-    // showing post with writer's data 
-    public function show($id)
+    public function categoryEdit($id)
     {
-        // calling method to read posts by Id at postModel
-        $post = $this->postModel->readPostById($id);
 
-        if($post == null){
-            Url::redirect('pages/error');
-        }
+        // receiving form's data and filtering it
+        // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
+        // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (isset($form)) :
+            $data = [
+                'id' => $id,
+                'title' => trim($form['title']),
+                'descr' => trim($form['descr']),
+                'title_err' => '',
+                'descr_err' => ''
+            ];
 
-        // calling method to read user by Id at userModel
-        $author = $this->userModel->readUserById($post->user_id);
-        $admin = $this->userModel->readAdmin();
+            if (in_array("", $form)) :
 
-        // defining data view
-        $data = [
-            'post' => $post,
-            'author' => $author,
-            'admin' => $admin
-        ];
+                if (empty($form['title'])) :
+                    $data['title_err'] = 'Fill the title field';
+                endif;
 
-        // defining view to show post
-        $this->view('posts/show', $data);
+                if (empty($form['descr'])) :
+                    $data['descr_err'] = 'Fill the text field';
+                endif;
+
+            else :
+                if ($this->categoryModel->update($data)) :
+                    // echo 'Post successfully edited<hr>';
+                    Session::msg('category', 'Post successfully edited');
+                    // header('Location: '.Url.'');
+                    Url::redirect('admin/list/categories');
+                else :
+                    die("Error editing category");
+                endif;
+
+            endif;
+        else :
+
+            $category = $this->categoryModel->readCategoryById($id);           
+
+            $data = [
+                'id' => $category->id,
+                'title' => $category->title,
+                'descr' => $category->txt,
+                
+                'title_err' => '',
+                'descr_err' => ''
+            ];
+
+        endif;
+
+        $this->view('admin/categories/edit', $data);
     }
 
     public function postDelete($id)
@@ -299,19 +337,69 @@ class Admin extends Controller
                 // destroy post model by ID
                 if ($this->postModel->delete($id)) :
                     Session::msg('post', 'Post successfully excluded');
-                    Url::redirect('posts');
+                    Url::redirect('admin/list/posts');
                 endif;
             else :
                 Session::msg('post', "You're not allowed to delete this Post", 'alert alert-danger');
-                Url::redirect('posts');
+                Url::redirect('admin/list/posts');
             endif;
 
         else :
             Session::msg('post', "You're not allowed to delete this Post", 'alert alert-danger');
-            Url::redirect('posts');
+            Url::redirect('admin/list/posts');
         endif;
     }
 
+
+    public function categoryDelete($id)
+    {
+        // checking user auth to delete post
+        if (!$this->checkAuth($id)) :
+            
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            /* filter_input — Obtains specific external var by name and opcionally filters it
+            INPUT_SERVER - Constant
+            REQUEST_METHOD - Contains methods. Generally 'GET', 'HEAD', 'POST' or 'PUT'            
+             */
+            // $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_STRING); SANITIZE_STRING DEPRECATED
+            $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+           
+            // id check, passed through filter and method == POST, this means it only executes through form, not by a 'forced' delete like putting id at browser after '/',
+            if ($id && $method == 'POST') :
+                if ($this->categoryModel->postsCheck($id)) :
+                    Session::msg('category', 'This category cannot be deleted, as there are post(s) registered in it, delete or change the post category', 'alert alert-warning');
+                    Url::redirect('admin/list/categories');
+                else :
+                    if ($this->categoryModel->delete($id)) :
+                        Session::msg(
+                            'category',
+                            'Category successfully excluded'
+                        );
+                        Url::redirect('admin/list/categories');
+                    endif;
+                endif;
+            endif;
+        endif;
+    }    
+
+    private function postsList()
+    {
+        $data = [
+            'posts' => $this->posts,
+        ];
+        $this->view('admin/posts/list', $data);
+    }
+
+    private function categoriesList()
+    {
+
+        $data = [
+            'categories' => $this->categories
+        ];
+        $this->view('admin/categories/list', $data);
+    }
+
+    
     // is logged user == to userId who made post
     private function checkAuth($id)
     {

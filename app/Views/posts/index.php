@@ -7,13 +7,13 @@
                 <?php foreach ($data['posts'] as $post) : ?>
                     <?php if (!empty($post->cover)) : ?>
                         <div class="postImg zoom">
-                            <a href="<?= URL . '/posts/show/' . $post->postId ?>">
+                            <a href="<?= URL . '/posts/' . $post->postId ?>">
                                 <img class="img-fluid" src="<?= $post->cover ?>" alt="<?= $post->title ?>" title="<?= $post->title ?>">
                             </a>
                         </div>
-                        <div class="postResumo">
+                        <div class="postSummary">
                             <div class="postText">
-                                <a href="<?= URL . '/posts/show/' . $post->postId ?>" title="<?= $post->title ?>" data-toggle="tooltip">
+                                <a href="<?= URL . '/posts/' . $post->postId ?>" title="<?= $post->title ?>" data-toggle="tooltip">
                                     <h2><?= $post->title ?></h2>
                                 </a>
                                 <p><?= $post->txt ?></p>
@@ -25,7 +25,7 @@
                     <?php else : ?>
 
                         <div class="noCover">
-                            <a href="<?= URL . '/posts/show/' . $post->postId ?>" title="<?= $post->title ?>" data-toggle="tooltip">
+                            <a href="<?= URL . '/posts/' . $post->postId ?>" title="<?= $post->title ?>" data-toggle="tooltip">
                                 <h2><?= $post->title ?></h2>
                             </a>
                             <p><?= $post->txt ?></p>

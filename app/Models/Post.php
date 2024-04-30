@@ -30,8 +30,10 @@ class Post {
 
     // saving post at db
     public function save($data) {
-        $this->db->query("INSERT INTO {$this->table} (title, txt, user_id) VALUES (:title, :txt, :user_id)");
+        $this->db->query("INSERT INTO {$this->table} (user_id, category_id, title, txt, user_id) VALUES (:user_id, :category_id, :title, :txt, :user_id)");
 
+        $this->db->bind("user_id", $data['user_id']);
+        $this->db->bind("category_id", $data['category_id']);
         $this->db->bind("title", $data['title']);
         $this->db->bind("txt", $data['txt']);
         $this->db->bind("user_id", $data['user_id']);
@@ -44,9 +46,10 @@ class Post {
     }
 
     public function update($data) {
-        $this->db->query("UPDATE {$this->table} SET title = :title, txt = :txt WHERE id = :id");
+        $this->db->query("UPDATE {$this->table} SET category_id = :category_id, title = :title, txt = :txt WHERE id = :id");
         
         $this->db->bind("id", $data['id']);
+        $this->db->bind("category_id", $data['category_id']);
         $this->db->bind("title", $data['title']);
         $this->db->bind("txt", $data['txt']);
         

@@ -37,7 +37,9 @@ class User {
 
     public function update($data) {
         $this->db->query("UPDATE users SET avatar = :avatar, username = :username, email = :email, pass = :pass, bio = :bio, facebook = :facebook, youtube = :youtube, instagram = :instagram WHERE id = :id");
+
         $this->db->bind("id", $data['id']);
+        $this->db->bind("avatar", $data['avatar']);
         $this->db->bind("username", $data['username']);
         $this->db->bind("email", $data['email']);
         $this->db->bind("pass", $data['pass']);

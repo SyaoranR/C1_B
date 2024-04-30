@@ -13,8 +13,8 @@
                         <div class="postImg zoom">
                             <img class="img-fluid" src="<?= $data['post']->cover ?>" alt="<?= $data['post']->title ?>" title="<?= $data['post']->title ?>">
                         </div>
-                        <div class="postResumo">
-                            <div class="postTexto">
+                        <div class="postSummary">
+                            <div class="postText">
                                 <h2><?= $data['post']->title ?></h2>
                                 <p><?= $data['post']->txt ?></p>
                                 <small>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     <?php else : ?>
-                        <div class="postSemCapa">
+                        <div class="noCover">
                             <h2><?= $data['post']->title ?></h2>
                             <p><?= $data['post']->txt ?></p>
                             <small>

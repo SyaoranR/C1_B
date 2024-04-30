@@ -52,15 +52,15 @@
                             
                             <div class="form-group">
                                 <label for="facebook">Facebook:</label>
-                                <input type="text" name="facebook" id="facebook" value="<?= $dados['facebook'] ?>" class="form-control">
+                                <input type="text" name="facebook" id="facebook" value="<?= $data['facebook'] ?>" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="youtube">YouTube:</label>
-                                <input type="text" name="youtube" id="youtube" value="<?= $dados['youtube'] ?>" class="form-control">
+                                <input type="text" name="youtube" id="youtube" value="<?= $data['youtube'] ?>" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="instagram">Instagram:</label>
-                                <input type="text" name="instagram" id="instagram" value="<?= $dados['instagram'] ?>" class="form-control">
+                                <input type="text" name="instagram" id="instagram" value="<?= $data['instagram'] ?>" class="form-control">
                             </div>
 
                             <div class="d-grid gap-2">
