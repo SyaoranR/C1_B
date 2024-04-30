@@ -25,23 +25,85 @@ class Admin extends Controller
        $this->view('admin/index');
     }
 
+    public function register($type)
+    {
+        if ($type == 'post') {
+            // call post register method
+            $this->postRegister();
+        } elseif ($type == 'category') {
+            // call category register method
+            $this->categoryRegister();
+        } else {
+            Url::redirect("pages/error");
+        }
+    }
+
+    public function edit($type, $id)
+    {
+        if ($type == 'post') {
+            // call post edit method
+            $this->postEdit($id);
+        } elseif ($type == 'category') {
+            // call category edit method
+            // $this->categoryEdit($id);
+        } else {
+            Url::redirect("pages/error");
+        }
+    }
+
+    public function delete($type, $id)
+    {
+        if ($type == 'post') {
+            // call post delete method
+            $this->postDelete($id);
+        } elseif ($type == 'categoria') {
+            // call category delete method
+            // $this->categoryDelete($id);
+        } else {
+            Url::redirect('pages/error');
+        }
+    }
+
+    public function list($type)
+    {
+        if ($type == 'posts') {
+            // call post list method
+            // $this->postsList();
+        } elseif ($type == 'categories') {
+            // call categories list method
+            // $this->categoriesList();
+        } else {
+            Url::redirect('pages/error');
+        }
+    }
+
+
     /* check and register posts */
-    public function register()
+    public function postRegister()
     {
 
         // receiving form's data and filtering it
         // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
         // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $form = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($form)) :
             $data = [
+                'category_id' => trim($form['category']),
                 'title' => trim($form['title']),
                 'txt' => trim($form['txt']),
-                'user_id' => $_SESSION['user_id']
+                'user_id' => $_SESSION['user_id'],
+                'category_err',
+                'title_err' => '',
+                'txt_err' => '',
+                // 'categories' => $this->categories,
             ];
 
             // null fields check
             if (in_array("", $form)) :
+
+                if (empty($form['category'])) :
+                    $data['category_err'] = 'Select a Category';
+                endif;
 
                 if (empty($form['title'])) :
                     $data['title_err'] = 'Fill the title field';
@@ -64,8 +126,11 @@ class Admin extends Controller
             endif;
         else :
             $data = [
+                // 'categories' => $this->categories,
                 'title' => '',
                 'txt' => '',
+
+                'category_err' => '',
                 'title_err' => '',
                 'txt_err' => ''
             ];
@@ -73,11 +138,67 @@ class Admin extends Controller
         endif;
 
         // defines form's view for posts' register
-        $this->view('posts/register', $data);
+        $this->view('admin/posts/register', $data);
+    }
+
+    private function categoryRegister()
+    {
+
+        // receiving form's data and filtering it
+        // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
+        // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (isset($form)) :
+            $data = [
+                'title' => trim($form['title']),
+                'txt' => trim($form['txt']),
+                'title_err' => '',
+                'txt_err' => ''
+            ];
+
+            // null fields check
+            if (in_array("", $form)) :
+
+                if (empty($form['title'])) :
+                    $data['title_err'] = 'Type title';
+                endif;
+
+                if (empty($form['txt'])) :
+                    $data['txt_err'] = 'Type a text';
+                endif;
+
+            else :
+
+                // saving categories on database
+                if ($this->categoryModel->save($data)) :
+                    // echo 'Category successfully created<hr>';
+                    Session::msg('category', 'Category successfully created');
+                    // header('Location: '.Url.'');
+                    Url::redirect('admin/list/categories');
+                else :
+                    die("Error saving category at database");
+                endif;
+
+            endif;
+
+        else :
+            $data = [
+                'title' => '',
+                'txt' => '',
+
+                'title_err' => '',
+                'txt_err' => '',
+            ];
+        endif;
+
+        //var_dump($form);
+
+        // defines form's view for categories' register
+        $this->view('admin/categories/register', $data);
     }
 
     // check and post's data edit by Id
-    public function edit($id)
+    public function postEdit($id)
     {
 
         // receiving form's data and filtering it
@@ -160,7 +281,7 @@ class Admin extends Controller
         $this->view('posts/show', $data);
     }
 
-    public function delete($id)
+    public function postDelete($id)
     {
         // checking user auth to delete post
         if (!$this->checkAuth($id)) :
