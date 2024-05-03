@@ -354,7 +354,7 @@ class Admin extends Controller
     public function categoryDelete($id)
     {
         // checking user auth to delete post
-        if (!$this->checkAuth($id)) :
+        // if (!$this->checkAuth($id)) :
             
             $id = filter_var($id, FILTER_VALIDATE_INT);
             /* filter_input — Obtains specific external var by name and opcionally filters it
@@ -379,7 +379,7 @@ class Admin extends Controller
                     endif;
                 endif;
             endif;
-        endif;
+        // endif;
     }    
 
     private function postsList()
@@ -401,13 +401,13 @@ class Admin extends Controller
 
     
     // is logged user == to userId who made post
-    private function checkAuth($id)
-    {
-        $post = $this->postModel->readPostById($id);
-        if ($post->user_id != $_SESSION['user_id']) :
-            return true;
-        else :
-            return false;
-        endif;
-    }
+    // private function checkAuth($id)
+    // {
+    //     $post = $this->postModel->readPostById($id);
+    //     if ($post->user_id != $_SESSION['user_id']) :
+    //         return true;
+    //     else :
+    //         return false;
+    //     endif;
+    // }
 }
