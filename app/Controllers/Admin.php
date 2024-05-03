@@ -308,7 +308,7 @@ class Admin extends Controller
             $data = [
                 'id' => $category->id,
                 'title' => $category->title,
-                'descr' => $category->txt,
+                'descr' => $category->descr,
                 
                 'title_err' => '',
                 'descr_err' => ''
