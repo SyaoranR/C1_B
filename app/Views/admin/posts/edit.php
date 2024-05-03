@@ -8,7 +8,7 @@
             <!-- Diferente do curso, lá aparece dentro de uma barra cinza -->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= URL ?>/posts">Posts</a></li>
+                    <li class="breadcrumb-item"><a href="<?= URL ?>/admin" data-toggle="tooltip" title="Posts">Admin</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit</li>
                 </ol>
             </nav>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body bg-light">
 
-                    <form name="login" method="POST" action="<?= URL ?>/post/edit/<?= $data['id'] ?>" class="mt-4">
+                    <form name="login" method="POST" action="<?= URL ?>admin/edit/post/<?= $data['id'] ?>" class="mt-4">
 
                         <div class="form-group">
                             <label for="title">Title: <sup class="text-danger">*</sup></label>

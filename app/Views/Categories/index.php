@@ -1,12 +1,10 @@
 <div class="container py-5">
     <div class="row">
         
-        <div class="col-lg-8">
-            <h3><?= $data['category']->title ?></h3>
-            <p><?= $data['category']->descr ?></p>
+        <div class="col-lg-8">            
 
             <?= Session::msg('category') ?>
-            <article class="posts border-top pt-5">
+            <article class="posts">
                 <?php foreach ($data['posts'] as $post) : ?>
                     <?php if (!empty($post->postCover)) : ?>
                         <div class="postImg zoom">
@@ -21,7 +19,7 @@
                                 <a href="<?= URL . '/posts/' . $post->postId ?>" title="<?= $post->postTitle ?>" data-toggle="tooltip">
                                     <h2><?= $post->postTitle ?></h2>
                                 </a>
-                                <p><?= $post->postText ?></p>
+                                <p><?= $post->postTxt ?></p>
                                 <small>
                                 Written by: <b><?= $post->postAuthor ?></b> at <?= Check::brDate($post->postRegisterDate) ?>
                                 </small>
@@ -34,7 +32,7 @@
                             <a href="<?= URL . '/posts/' . $post->postId ?>" title="<?= $post->postTitle ?>" data-toggle="tooltip">
                                 <h2><?= $post->postTitle ?></h2>
                             </a>
-                            <p><?= $post->postText ?></p>
+                            <p><?= $post->postTxt ?></p>
                             <small>
                                 Written by: <b><?= $post->postAuthor ?></b> at <?= Check::brDate($post->postRegisterDate) ?>
                             </small>
@@ -48,7 +46,7 @@
         </div>
 
         <div class="col-lg-4">
-            <?php include '' . APP . '/Views/sideBar.php' ?>
+            <?php include 'sideBar.php' ?>
         </div>
 
     </div>

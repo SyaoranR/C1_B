@@ -31,8 +31,7 @@ class Users extends Controller {
                 'username' => trim($form['username']),
                 'email' => trim($form['email']),
                 'pass' => trim($form['pass']),
-                'bio' => trim($form['bio']),
-                'bio' => trim($form['bio']),
+                'bio' => trim($form['bio']),                
                 'facebook' => trim($form['facebook']),
                 'youtube' => trim($form['youtube']),
                 'instagram' => trim($form['instagram']),
@@ -208,6 +207,8 @@ class Users extends Controller {
             $data = [
                 'email' => trim($form['email']),
                 'pass' => trim($form['pass']),
+                'email_err' => '',
+                'pass_err' => '',
             ];
 
             if (in_array("", $form)) :

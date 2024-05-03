@@ -60,7 +60,7 @@ class Admin extends Controller
         if ($type == 'post') {
             // call post delete method
             $this->postDelete($id);
-        } elseif ($type == 'categoria') {
+        } elseif ($type == 'category') {
             // call category delete method
             $this->categoryDelete($id);
         } else {
@@ -99,7 +99,7 @@ class Admin extends Controller
                 'category_err',
                 'title_err' => '',
                 'txt_err' => '',
-                // 'categories' => $this->categories,
+                'categories' => $this->categories,
             ];
 
             // null fields check
@@ -113,8 +113,8 @@ class Admin extends Controller
                     $data['title_err'] = 'Fill the title field';
                 endif;
 
-                if (empty($form['descr'])) :
-                    $data['descr_err'] = 'Fill the text field';
+                if (empty($form['txt'])) :
+                    $data['txt_err'] = 'Fill the text field';
                 endif;
 
             else :
@@ -132,11 +132,11 @@ class Admin extends Controller
             $data = [
                 'categories' => $this->categories,
                 'title' => '',
-                'descr' => '',
+                'txt' => '',
 
                 'category_err' => '',
                 'title_err' => '',
-                'descr_err' => ''
+                'txt_err' => ''
             ];
 
         endif;

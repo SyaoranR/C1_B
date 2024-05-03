@@ -1,6 +1,8 @@
 <?php
 
 // Data and Communication Control with post model
+// Responsible for database communication
+// It is conventional having the same name 'like' an entity
 
 class Post {
 
@@ -30,6 +32,7 @@ class Post {
 
     // saving post at db
     public function save($data) {
+        
         $this->db->query("INSERT INTO {$this->table} (user_id, category_id, title, txt, user_id) VALUES (:user_id, :category_id, :title, :txt, :user_id)");
 
         $this->db->bind("user_id", $data['user_id']);

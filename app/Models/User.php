@@ -1,5 +1,8 @@
 <?php
 
+// Responsible for database communication
+// It is conventional having the same name 'like' an entity
+
 class User {
 
     private $db;

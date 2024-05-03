@@ -1,6 +1,7 @@
 <?php
 
-// Data and Communication Control with user model
+// Data and Communication Control with Post model
+// It is conventional having the same name 'like' a table
 
 class Posts extends Controller {
 
@@ -12,7 +13,7 @@ class Posts extends Controller {
          $this->categoryModel = $this->model('Category');
     }
 
-    public function index() {
+    public function index($id) {
         // calling method to read posts by Id at postModel
         $post = $this->postModel->readPostById($id);
 
