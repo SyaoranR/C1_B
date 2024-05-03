@@ -2,7 +2,7 @@
     <div class='p-5 m-5 bg-light rounded border shadow'>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= URL ?>/posts" data-toggle="tooltip" title="Posts">Posts</a></li>                
+                <li class="breadcrumb-item"><a href="<?= URL ?>" data-toggle="tooltip" title="Posts">Posts</a></li>                
                 <li class="breadcrumb-item active" aria-current="page"><?= $data['post']->title ?></li>
             </ol>
         </nav>
