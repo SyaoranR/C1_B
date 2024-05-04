@@ -18,8 +18,9 @@
                     Edit Post
                 </div>
                 <div class="card-body bg-light">
-
-                    <form name="login" method="POST" action="<?= URL ?>admin/edit/post/<?= $data['id'] ?>" class="mt-4">
+                    
+                    <!-- Enctype to be able to use summernote style formats -->
+                    <form name="Edit" enctype="multipart/form-data" method="POST" action="<?= URL ?>/admin/edit/post/<?= $data['id'] ?>" class="mt-4">
 
                         <div class="form-group">
                             <label for="title">Title: <sup class="text-danger">*</sup></label>
@@ -29,8 +30,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="texto">Text: <sup class="text-danger">*</sup></label>
-                            <textarea name="txt" id="txt" class="form-control  <?= $data['txt_err'] ? 'is-invalid' : '' ?>" rows="5"><?= $data['txt'] ?></textarea>
+                            <label for="summernote">Text: <sup class="text-danger">*</sup></label>
+                            <textarea name="txt" id="summernote" class="form-control  <?= $data['txt_err'] ? 'is-invalid' : '' ?>" rows="5"><?= $data['txt'] ?></textarea>
                             <div class="invalid-feedback">
                                 <?= $data['txt_err'] ?>
                             </div>

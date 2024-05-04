@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body bg-light">
 
-                    <form name="login" method="POST" action="<?= URL ?>/admin/register/category" class="mt-4">
+                    <form name="Register" method="POST" action="<?= URL ?>/admin/register/category" class="mt-4">
 
                         <div class="form-group">
                             <label for="title">Title: <sup class="text-danger">*</sup></label>

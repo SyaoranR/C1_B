@@ -89,6 +89,7 @@ class Admin extends Controller
         // receiving form's data and filtering it
         // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
         // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $form = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($form)) :
             $data = [
@@ -208,7 +209,8 @@ class Admin extends Controller
         // receiving form's data and filtering it
         // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
         // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $form = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($form)) :
             $data = [
                 'id' => $id,
