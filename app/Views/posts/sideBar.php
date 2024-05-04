@@ -1,4 +1,12 @@
 <div class="sideBar">
+    <h4>Search</h4>
+    <form method="POST" action="<?=URL?>/posts/search" class="d-flex">
+        <input name="search" class="form-control me-2" type="search" placeholder="What are you looking?" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+</div>
+
+
     <?php if (!empty($data['admin']->avatar)) : ?>
         <div class="zoom">
             <img class="avatar" src="<?= $data['admin']->avatar ?>">
@@ -29,7 +37,7 @@
     </ul>
     <h4 class="text-center"><?= $data['admin']->username ?></h4>
     <p><?= $data['admin']->bio ?></p>
-</div>
+
 
 <div class="sideBar">
     <h4>Categories</h4>

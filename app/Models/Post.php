@@ -85,4 +85,16 @@ class Post {
         endif;
     }    
 
+    public function findPost($search)
+    {
+        $this->db->query("SELECT * FROM {$this->table} WHERE (title LIKE '%' :search '%' OR txt LIKE '%' :search '%') ORDER BY id DESC");
+        $this->db->bind('search', $search);
+
+        return $this->db->results();
+    }
+
+    public function count(){
+        return $this->db->totalResults();
+    }
+
 }
