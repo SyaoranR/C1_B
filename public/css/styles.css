@@ -17,7 +17,10 @@
 }
 :root {
   --primaryColor: #645a53;
-  --secondaryColor: #ea5252;
+  /* --primaryColor: #008080; */
+  /* --secondaryColor: #ea5252; */
+  /* --secondaryColor: #00FF00; */
+  --secondaryColor: #008080;
 }
 html {
   font-family: "Roboto", sans-serif !important;
@@ -140,6 +143,11 @@ label {
 .zoom:hover img {
   transform: scale(1.2);
 }
+
+.postHeader i {
+  margin-left: 10px;
+}
+
 
 .postSummary {
   padding-left: 40px;

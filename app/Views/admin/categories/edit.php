@@ -38,7 +38,7 @@
 
                         <div class="row m-2">
                             <div class="d-grid gap-2">
-                                <input type="submit" value="Category Edit" class="btn btn-info text-white">
+                                <input type="submit" value="Category Edit" class="btn btn-info text-white" data-toggle="tooltip" title="Category Edit">
                             </div>
                         </div>
 

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * Calling Database Connection
+ * 
+ * @author Alessandro Fraga Gomes
+ * @copyright 2021-2024 Php7 Alex
+ * @version 1.1.1
+ */
+
 class Db {
 
     // private $host = 'localhost';

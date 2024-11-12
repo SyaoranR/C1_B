@@ -13,28 +13,34 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=URL?>" data-tooltip="tooltip" title="Initial Page">Home</a>
+                        <a class="nav-link" href="<?= URL ?>" data-tooltip="tooltip" title="Initial Page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=URL?>/pages/about" data-tooltip="tooltip" title="About Us">About Us</a>
+                        <a class="nav-link" href="<?= URL ?>/pages/about" data-tooltip="tooltip" title="About Us">About Us</a>
                     </li>
-                </ul>
+                </ul>    
 
-                
                 <?php if (isset($_SESSION['user_id'])) : ?>
                     <span class="navbar-text">
                         <p class="text-white">Hello, <?= $_SESSION['user_name'] ?>, Welcome</p>
-                        <a class="btn btn-sm btn-danger" href="<?= URL ?>/users/logout" data-toggle="tooltip" title="Logout">Logout</a>
-
-                        <a class="btn btn-sm btn-primary" href="<?= URL ?>/users/profile/<?= $_SESSION['user_id'] ?>" data-toggle="tooltip" title="User Panel">Profile</a>
-                        <?php if ($_SESSION['user_level'] == 3) : ?>
-                            <a class="btn btn-sm btn-dark" href="<?= URL ?>/admin/index" data-toggle="tooltip" title="Administrator Panel">Admin</a>
+                        <a class="btn btn-sm btn-danger" href="<?= URL ?>/users/logout" data-toggle="tooltip" title="Logout">Logout</a>                      
+                        <?php if ($_SESSION['user_lv'] == 3) : ?>
+                            <a class="btn btn-sm btn-primary" href="<?= URL ?>/users/profile/<?= $_SESSION['user_id'] ?>" data-toggle="tooltip" title="User Panel">Profile</a>
+                            <a class="btn btn-sm btn-dark" href="<?= URL ?>/admin" data-toggle="tooltip" title="Administrator Panel">Admin</a>
                         <?php endif; ?>
-                    </span>                   
-                <?php endif; ?>       
-                                
+                    </span>                         
+                <?php else : ?>
+                    <span class="navbar-item mx-3">
+                        <p class="text-white">Have Account?</p>
+                        <a class="btn btn-sm btn-primary" href="<?= URL ?>/users/login/" data-toggle="tooltip" title="Login">Login</a>
+                    </span>
+                    <span class="navbar-item">
+                        <p class="text-white">Not Registered?</p>
+                        <a class="btn btn-sm btn-dark" href="<?= URL ?>/users/register/" data-toggle="tooltip" title="Register">Register</a>
+                    </span>  
+                <?php endif; ?>        
             </div>
         </nav>
     </div>
 </header>
-<div class="clearfix"></div>
+<div class="container"><h6></br><?= Url::currentDate()?></h6></div>

@@ -3,19 +3,19 @@
 // Classes Autoload
 
 // register any number of autoloaders
-spl_autoload_register(function ($classe) {
+spl_autoload_register(function ($class) {
 
     // directories list
-    $diretorios = ['Libraries', 'Helpers'];
+    $directories = ['Libraries', 'Helpers'];
 
     // iterates directories in classes' search
-    foreach ($diretorios as $diretorio) :
+    foreach ($directories as $diretory) :
         // __DIR__ const returns file's directory
         // SEPARATOR = '/'
-        $arq = (__DIR__ . DIRECTORY_SEPARATOR . $diretorio . DIRECTORY_SEPARATOR . $classe . '.php');
-        if (file_exists($arq)) :
+        $arch = (__DIR__ . DIRECTORY_SEPARATOR . $diretory . DIRECTORY_SEPARATOR . $class . '.php');
+        if (file_exists($arch)) :
             // 'includes' class file if it exists
-            require_once $arq;
+            require_once $arch;
         endif;
     endforeach;
 });

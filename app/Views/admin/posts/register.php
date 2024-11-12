@@ -14,12 +14,23 @@
             </nav>
 
             <div class="card">
-                <div class="card-header secondaryBg text-white">
+                <div class="card-header primaryBg text-white">
                     Write Post
                 </div>
                 <div class="card-body bg-light">
                      <!-- Enctype to be able to use summernote style formats -->
                     <form name="Register" enctype="multipart/form-data" method="POST" action="<?= URL ?>/admin/register/post" class="mt-4">
+
+                        <div class="form-group">
+                            <label>Cover Image</label>
+                            <div class="input-group mb-3 <?= $data['upload_err'] ? 'is-invalid' : '' ?>">
+                                <input type="file" name="cover" class="form-control" id="inputGroupFile02" />
+                                <label class="input-group-text" for="inputGroupFile02">Send File</label>
+                            </div>
+                            <div class="invalid-feedback">
+                                <?= $data['upload_err'] ?>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="title">Title: <sup class="text-danger">*</sup></label>
@@ -38,7 +49,7 @@
 
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select class="form-control <?= $data['category_err'] ? 'is-invalid' : '' ?>" name="category" id="category">
+                            <select class="form-control <?= $data['category_err'] ? 'is-invalid' : '' ?>" name="category_id" id="category">
                                 <option value="">Select</option>
 
                                 <?php foreach ($data['categories'] as $category) : ?>

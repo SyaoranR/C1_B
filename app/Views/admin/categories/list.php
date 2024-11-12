@@ -35,8 +35,8 @@
                                     <td class="text-center align-middle">
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <!-- This '/controller/' may be the exact same name/string to work  -->
-                                                <a class="font-weight-bold" href="<?= URL . '/categories/' . $category->id ?>" data-toggle="tooltip" title="Show Category <?= $category->title ?>">
+                                                <!-- This '/controller/' may be the exact same name/string to work  HERE WAS ID before, didn't worked -->
+                                                <a class="font-weight-bold" href="<?= URL . '/categories/adminCateg/' . $category->id ?>" data-toggle="tooltip" title="Show Category <?= $category->title ?>">
                                                     <i class="btn btn-outline-success border-0 fas fa-eye"></i>
                                                 </a>
                                             </li>

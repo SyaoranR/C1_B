@@ -1,7 +1,16 @@
 <div class="sideBar">
+    <h4>Search</h4>
+    <form method="POST" action="<?=URL?>/posts/search" class="form-inline my-2- my-lg-0">
+        <input name="search" class="form-control mr-sm-2" type="search" placeholder="What are you looking?" aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+
+
+    
     <?php if (!empty($data['admin']->avatar)) : ?>
         <div class="zoom">
-            <img class="avatar" src="<?= $data['admin']->avatar ?>">
+            <img class="avatar" src="<?= URL.'/uploads/images/'.$data['admin']->avatar ?>">
         </div>
     <?php endif ?>
     <ul class="socialMedia">
@@ -29,14 +38,14 @@
     </ul>
     <h4 class="text-center"><?= $data['admin']->username ?></h4>
     <p><?= $data['admin']->bio ?></p>
-</div>
+
 
 <div class="sideBar">
     <h4>Categories</h4>
     <ul>
         <?php foreach ($data['categories'] as $category) : ?>
             <li>
-                <a href="<?= URL . '/categories/' . $category->id ?>" data-toggle="tooltip" title=" <?= $category->title ?>">
+                <a href="<?= URL . '/categories/' . $category->url_categories ?>" data-toggle="tooltip" title=" <?= $category->title ?>">
                     <?= $category->title ?>
                 </a>
             </li>

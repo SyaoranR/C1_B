@@ -39,13 +39,10 @@
 
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select class="form-control <?= $data['category_err'] ? 'is-invalid' : '' ?>" name="category" id="category">
-                                <option value="">Select</option>
-
+                            <select class="form-control" name="category" id="category">
                                 <?php foreach ($data['categories'] as $category) : ?>
                                     <option value="<?= $category->id ?>"> <?= $data['category_id'] == $category->id ? "selected" : "" ?> <?= $category->title ?></option>
                                 <?php endforeach ?>
-
                             </select>
                         </div>
 

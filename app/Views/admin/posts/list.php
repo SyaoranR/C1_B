@@ -36,7 +36,7 @@
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
                                                 <!-- This '/controller/' may be the exact same name/string to work  -->
-                                                <a class="font-weight-bold" href="<?= URL . '/posts/' . $post->postId ?>" data-toggle="tooltip" title="Show Post <?= $post->title ?>">
+                                                <a class="font-weight-bold" href="<?= URL . '/posts/' . $post->postUrl ?>" data-toggle="tooltip" title="Show Post <?= $post->title ?>">
                                                     <i class="btn btn-outline-success border-0 fas fa-eye"></i>
                                                 </a>
                                             </li>

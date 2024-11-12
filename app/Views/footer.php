@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h5>PHP Alex</h5>
+                <h5>PHP7 ALEX</h5>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item bg-transparent">
                         <a href="<?= URL ?>" data-toggle="tooltip" title="Página Inicial">Home</a>
@@ -35,7 +35,7 @@
 
             </div>
             <div class="col-md-3 d-flex align-items-center">
-                <h2 class="animatedText">PHP Alex</h2>
+                <h2 class="animatedText">PHP7 ALEX</h2>
             </div>
         </div>
 

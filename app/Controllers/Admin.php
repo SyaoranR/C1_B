@@ -1,6 +1,13 @@
 <?php
- 
-// Data and Communication Control with user model
+
+/**
+ * Data and Communication Control with user (Admin) model
+ * 
+ * @author Alessandro Fraga Gomes
+ * @copyright 2021-2024 Php7 Alex
+ * @version 1.1.1
+ */
+
 
 class Admin extends Controller
 {
@@ -17,7 +24,7 @@ class Admin extends Controller
         $this->categories = $this->categoryModel->readCategories();
 
         $admin = $this->userModel->readAdmin();
-        if(!$admin->level == $_SESSION['user_level']){
+        if(!$admin->lv == $_SESSION['user_lv']){
             session_destroy();
             Url::redirect('./');
         }
@@ -28,6 +35,8 @@ class Admin extends Controller
     public function index() {
        $this->view('admin/index');
     }
+
+    // choosing each type at sideBar will send you to it respective page
 
     public function register($type)
     {
@@ -92,21 +101,26 @@ class Admin extends Controller
         // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $form = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($form)) :
+
+            $cover = $_FILES['cover']['tmp_name'] ? $_FILES['cover'] : null;
+            // var_dump($cover);
+
             $data = [
-                'category_id' => trim($form['category']),
+                'category_id' => trim($form['category_id']),
                 'title' => trim($form['title']),
                 'txt' => trim($form['txt']),
                 'user_id' => $_SESSION['user_id'],
                 'category_err',
                 'title_err' => '',
                 'txt_err' => '',
-                'categories' => $this->categories,
+                'upload_err' => '',
+                'categories' => $this->categories
             ];
 
             // null fields check
             if (in_array("", $form)) :
 
-                if (empty($form['category'])) :
+                if (empty($form['category_id'])) :
                     $data['category_err'] = 'Select a Category';
                 endif;
 
@@ -119,13 +133,34 @@ class Admin extends Controller
                 endif;
 
             else :
-                // saving posts in database
-                if ($this->postModel->save($data)) :
-                    // echo 'Post Registered Successfully<hr>';
-                    Session::msg('post', 'Post Registered Successfully');
-                    Url::redirect('admin/list/posts');
-                else :
-                    die("Error saving post at database");
+
+                if ($cover) :
+                    // thanks to autoload class, include is not necessary
+                    $upload = new Upload();
+                    $upload->image(
+                        $cover,
+                        Url::friendlyUrl($form['title'])
+                    );
+                    if ($upload->getResult()) :
+                        $cover = $upload->getResult();
+                    else :
+                        $cover = null;
+                        $data['upload_err'] = $upload->getError();
+                    endif;
+                endif;
+
+                // see last video 12:00
+                $data['cover'] = $cover;
+
+                if (!$data['upload_err']) :
+                    // saving posts in database
+                    if ($this->postModel->save($data)) :
+                        // echo 'Post Successfully Registered <hr>';
+                        Session::msg('post', 'Post Successfully Registered');
+                        Url::redirect('admin/list/posts');
+                    else :
+                        die("Error saving post at database");
+                    endif;
                 endif;
 
             endif;
@@ -137,7 +172,8 @@ class Admin extends Controller
 
                 'category_err' => '',
                 'title_err' => '',
-                'txt_err' => ''
+                'txt_err' => '',
+                'upload_err' => ''
             ];
 
         endif;
@@ -152,7 +188,8 @@ class Admin extends Controller
         // receiving form's data and filtering it
         // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
         // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $form = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($form)) :
             $data = [
                 'title' => trim($form['title']),
@@ -192,7 +229,7 @@ class Admin extends Controller
                 'descr' => '',
 
                 'title_err' => '',
-                'descr_err' => '',
+                'descr_err' => ''
             ];
         endif;
 
@@ -245,18 +282,14 @@ class Admin extends Controller
         else :
 
             $post = $this->postModel->readPostById($id);
-
-            if ($post->user_id != $_SESSION['user_id']) :
-                Session::msg('post', "You're not allowed to edit this Post", 'alert alert-danger');
-                Url::redirect('posts');
-            endif;
-
+           
             $data = [
                 'id' => $post->id,
                 'categories' => $this->categories,
                 'category_id' => $post->category_id,
                 'title' => $post->title,
                 'txt' => $post->txt,
+                
                 'title_err' => '',
                 'txt_err' => ''
             ];
@@ -295,7 +328,7 @@ class Admin extends Controller
             else :
                 if ($this->categoryModel->update($data)) :
                     // echo 'Post successfully edited<hr>';
-                    Session::msg('category', 'Post successfully edited');
+                    Session::msg('category', 'Category successfully edited');
                     // header('Location: '.Url.'');
                     Url::redirect('admin/list/categories');
                 else :
@@ -402,14 +435,14 @@ class Admin extends Controller
     }
 
     
-    // is logged user == to userId who made post
-    // private function checkAuth($id)
-    // {
-    //     $post = $this->postModel->readPostById($id);
-    //     if ($post->user_id != $_SESSION['user_id']) :
-    //         return true;
-    //     else :
-    //         return false;
-    //     endif;
-    // }
+    //is logged user == to userId who made post
+    private function checkAuth($id)
+    {
+        $post = $this->postModel->readPostById($id);
+        if ($post->user_id != $_SESSION['user_id']) :
+            return true;
+        else :
+            return false;
+        endif;
+    }
 }

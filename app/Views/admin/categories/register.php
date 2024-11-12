@@ -14,8 +14,8 @@
             </nav>
 
             <div class="card">
-                <div class="card-header secondaryBg text-white">
-                    Category Register
+                <div class="card-header primaryBg text-white">
+                    Create Category
                 </div>
                 <div class="card-body bg-light">
 
@@ -38,7 +38,7 @@
 
                         <div class="row m-2">
                             <div class="d-grid gap-2">
-                                <input type="submit" value="Send/Post Category" class="btn btn-info text-white" data-toggle="tooltip" title="Category Register">
+                                <input type="submit" value="Create Category" class="btn btn-info text-white" data-toggle="tooltip" title="Category Register">
                             </div>
                         </div>
 

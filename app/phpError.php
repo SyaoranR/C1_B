@@ -27,12 +27,12 @@ function phpErr($err, $msg, $arq, $line)
             $css = '';
     endswitch;
 
-    echo "<p class=\"alert {$css} m-2\"><b>Erro: </b>{$msg} <b>no arquivo</b> {$arq} <b>na linha</b> <strong class=\"text-danger\">{$line}</strong></p>";
+    echo "<p class=\"alert {$css} m-2\"><b>Error: </b>{$msg} <b>at file</b> {$arq} <b>in the line</b> <strong class=\"text-danger\">{$line}</strong></p>";
 
     // var_dump($err);
 
     if (log) :
-        $logs = "Erro: {$msg} no aqruivo {$arq} na linha {$line}\n";
+        $logs = "Error: {$msg} at file {$arq} in the line {$line}\n";
 
         // error_log('Something seems wrong...', 3, 'ErrorLog.log');
         error_log($logs, 3, "" . dirname(__FILE__) . "/logs/ErrorLog.log");

@@ -7,7 +7,7 @@
                 <ul class="list-group list-group-flush">
                     <?php foreach ($data['posts'] as $post) : ?>
                         <li class="list-group-item py-3">
-                            <a href="<?= URL . '/posts/' . $post->id ?>" title="<?= $post->title ?>" data-toggle="tooltip">
+                            <a href="<?= URL . '/posts/' . $post->postUrl ?>" title="<?= $post->title ?>" data-toggle="tooltip">
                                 <h2><?= $post->title ?></h2>
                             </a>
                             <p><?= $post->txt ?></p>
@@ -18,7 +18,7 @@
         </div>
         
         <div class="col-lg-4">
-            <?php include 'sideBar.php' ?> 
+            <?php include '' . APP . '/Views/sideBar.php' ?> 
         </div>
     </div>
 </div>

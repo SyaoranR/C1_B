@@ -1,6 +1,14 @@
 <?php
 
-// Data and Communication Control with user model
+/**
+ * Data and Communication Control with User model
+ * It is conventional having the same name 'like' a table, example "Users"
+ * in plural, with entity being in singular as "User" 
+ * 
+ * @author Alessandro Fraga Gomes
+ * @copyright 2021-2024 Php7 Alex
+ * @version 1.1.1
+ */
 
 class Users extends Controller {
 
@@ -10,24 +18,47 @@ class Users extends Controller {
         $this->userModel = $this->model('User');
     }
 
+    public function index($url_users) {
+        
+        $user = $this->userModel->readUserByUrl($url_users);
+
+        if($user == null) {
+            Url::redirect('/');
+        }              
+
+        // defining data view
+        $data = [
+            'user' => $user         
+        ];
+
+        // defining view to show post
+        $this->view('users/profile', $data);
+    }
+
     // user data checking and edition by Id
     public function profile($id)
     {
         // search user at model by Id
         $user = $this->userModel->readUserById($id);
+        
 
         // receiving form's data and filtering it
         // receiving form's data and filtering it
         // https://stackoverflow.com/questions/69207368/constant-filter-sanitize-string-is-deprecated
         // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // $form = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);        
+        $form = filter_input_array(INPUT_POST, FILTER_DEFAULT);        
         
-        if (isset($form)) :
-            
+        if (isset($form)) :          
+
+            $avatar = $_FILES['avatar']['tmp_name'] ? $_FILES['avatar'] : null;
+            var_dump($avatar);
+                      
             // defining data
             $data = [
                 'id' => $id,
-                'avatar' => trim($form['avatar']),
+                // 'avatar' => trim($form['avatar']),
+                // 'avatar' => $avatar,
                 'username' => trim($form['username']),
                 'email' => trim($form['email']),
                 'pass' => trim($form['pass']),
@@ -37,9 +68,10 @@ class Users extends Controller {
                 'instagram' => trim($form['instagram']),
                 'username_err' => '',
                 'email_err' => '',
-                'pass_err' => ''
-            ];
-
+                'pass_err' => '',
+                'upload_err' => '',
+            ];  
+            
             // empty field checking
             if (empty($form['pass'])) :
                 // defining password as user's password at database
@@ -66,18 +98,38 @@ class Users extends Controller {
                 endif;
 
             else :
-                // is email equal to db's
-                if ($form['email'] == $user->email) :
-                    $this->userModel->update($data);
-                    Session::msg('user', 'Profile updated successfully');
-                // is email already in database
-                elseif (!$this->userModel->emailCheck($form['email'])) :
-                    $this->userModel->update($data);
-                    Session::msg('user', 'Profile updated successfully');
-                else :
-                    $data['email_err'] = 'Informed e-mail already exist';
+
+                if ($avatar) :
+                    // thanks to autoload class, include is not necessary
+                    $upload = new Upload();
+                    $upload->image(
+                        $avatar,
+                        Url::friendlyUrl($form['username'])
+                    );
+                    if ($upload->getResult()) :
+                        $avatar = $upload->getResult();
+                    else :
+                        $avatar = null;
+                        $avatar['upload_err'] = $upload->getError();
+                    endif;
                 endif;
 
+                // see last video 12:00
+                $data['avatar'] = $avatar;
+
+                if (!$data['upload_err']) :
+                    // is email equal to db's
+                    if ($form['email'] == $user->email) :
+                        $this->userModel->update($data);
+                        Session::msg('user', 'Profile updated successfully');
+                    // is email already in database
+                    elseif (!$this->userModel->emailCheck($form['email'])) :
+                        $this->userModel->update($data);
+                        Session::msg('user', 'Profile updated successfully');
+                    else :
+                        $data['email_err'] = 'Informed e-mail already exist';
+                    endif;
+                endif;
             endif;
         else :
             // is user authorized to edit profile
@@ -89,7 +141,7 @@ class Users extends Controller {
             //defining view data
             $data = [
                 'id' => $user->id,
-                'avatar' => $user->avatar,
+                // 'avatar' => $user->avatar,
                 'username' => $user->username,
                 'email' => $user->email,
                 'bio' => $user->bio,
@@ -98,7 +150,8 @@ class Users extends Controller {
                 'instagram' => $user->instagram,
                 'username_err' => '',
                 'email_err' => '',
-                'pass_err' => ''
+                'pass_err' => '',
+                'upload_err' => ''
             ];
 
         endif;
@@ -270,11 +323,18 @@ class Users extends Controller {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_name'] = $user->username;
         $_SESSION['user_email'] = $user->email;
-        $_SESSION['user_level'] = $user->level;
+        $_SESSION['user_lv'] = $user->lv;
 
         // header('Location: '.URL.'');               
         // UNCOMMENT WHEN NOT IN DEVELOPMENT
-        Url::redirect('posts');
+        //  Url::redirect('posts');
+        if($_SESSION['user_lv'] == 3 ){
+            // Url::redirect('posts');
+            Url::redirect('admin/index');
+        }
+        else{
+            Url::redirect('user/profile/'.$_SESSION['user_id'].' ');
+        }
     }
 
     public function logout() {
@@ -282,7 +342,7 @@ class Users extends Controller {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_name']);
         unset($_SESSION['user_email']);
-        unset($_SESSION['user_level']);
+        unset($_SESSION['user_lv']);
 
         // destroys all registered session data
         session_destroy();

@@ -1,7 +1,14 @@
 <?php
 
-// Data and Communication Control with Post model
-// It is conventional having the same name 'like' a table
+/**
+ * Data and Communication Control with Post model
+ * It is conventional having the same name 'like' a table, example "Posts"
+ * in plural, with entity being in singular as "Post" * 
+ * 
+ * @author Alessandro Fraga Gomes
+ * @copyright 2021-2024 Php7 Alex
+ * @version 1.1.1
+ */
 
 class Posts extends Controller {
 
@@ -13,9 +20,11 @@ class Posts extends Controller {
          $this->categoryModel = $this->model('Category');
     }
 
-    public function index($id) {
+    // public function index($id) {
+    public function index($url_posts) {
         // calling method to read posts by Id at postModel
-        $post = $this->postModel->readPostById($id);
+        // $post = $this->postModel->readPostById($id);
+        $post = $this->postModel->readPostByUrl($url_posts);
 
         if($post == null) {
             Url::redirect('pages/error');
@@ -25,12 +34,14 @@ class Posts extends Controller {
         $author = $this->userModel->readUserById($post->user_id);
         $admin = $this->userModel->readAdmin();        
         $categories = $this->categoryModel->readCategories();
+        $category = $this->categoryModel->readCategoryById($post->category_id);
 
         // defining data view
         $data = [
             'post' => $post,
             'author' => $author,
             'categories' => $categories,
+            'category' => $category,
             'admin' => $admin
         ];
 
@@ -46,6 +57,7 @@ class Posts extends Controller {
         $search = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!empty($search)) {
 
+            // echo $search;
             $posts = $this->postModel->findPost($search);
             // $user = $this->userModel->readUserById(1);
             $admin = $this->userModel->readAdmin();
@@ -74,7 +86,7 @@ class Posts extends Controller {
             $this->view('posts/search', $data);
 
         } else {
-            Session::msg('post', 'To make a search, fill teh search field with at least a word', 'alert alert-info');
+            Session::msg('post', 'To make a search, fill the search field with at least one word', 'alert alert-info');
             Url::redirect('./');
         }
     }

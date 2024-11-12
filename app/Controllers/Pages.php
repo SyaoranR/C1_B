@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Data, Communication and views Control
+ * It is conventional having the same name 'like' a table, example "Pages"
+ * in plural
+ * 
+ * 
+ * @author Alessandro Fraga Gomes
+ * @copyright 2021-2024 Php7 Alex
+ * @version 1.1.1
+ */
+
 class Pages extends Controller {
 
     public function __construct()
@@ -10,7 +21,10 @@ class Pages extends Controller {
          $this->categoryModel = $this->model('Category');
     }
 
-    public function index() {     
+    public function index() {    
+        
+        // $title = "FriendlyUrl with <b>no</b> special chars ~~``";
+        // echo Url::friendlyUrl($title);
         
         $posts = $this->postModel->readPosts();
         $admin = $this->userModel->readAdmin();
@@ -24,7 +38,7 @@ class Pages extends Controller {
         $data = [
             'posts' => $posts,
             'admin' => $admin,
-            'categories' => $categories,
+            'categories' => $categories
         ];
 
         // defines view to show posts

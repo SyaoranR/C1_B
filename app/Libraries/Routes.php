@@ -4,7 +4,11 @@
  * Routes Class
  * Create the URLs, load controllers, 
  * methods and params
- * URL FORMAT - /controlador/metodo/parametros
+ * URL FORMAT - /controller/method/params
+ * 
+ * @author Alessandro Fraga Gomes
+ * @copyright 2021-2024 Php7 Alex
+ * @version 1.1.1
  */
 
 class Routes {

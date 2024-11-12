@@ -1,14 +1,11 @@
 <?php
-
 session_start();
 // this phpError is only recommended in delepment enviroment
 // put as comment if you deploy
 // include './../app/phpError.php';
 include './../app/config.php';
 include './../app/autoload.php';
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -48,18 +45,16 @@ include './../app/autoload.php';
 
     <!-- Novo 1 -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">  
-
 </head>
 <body>
-
     <?php
         include '../app/Views/header.php';  
         // creating instance, () is optional              
         $routes = new Routes();
+        // var_dump($routes);   
         // $routes->url();            
         include '../app/Views/footer.php';   
     ?>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>    
@@ -82,9 +77,7 @@ include './../app/autoload.php';
     
     <!-- Novo 1 -->
     <script src="<?= URL ?>/public/js/summernote-pt-BR.js"></script>  
-
-    <script src="<?=URL?>/public/js/jquery.functions.js"></script> 
-    
+    <script src="<?=URL?>/public/js/jquery.functions.js"></script>     
 </body>
 </html>
 

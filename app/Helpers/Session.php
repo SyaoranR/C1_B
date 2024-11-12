@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Users' Sessions
+ * 
+ * @author Alessandro Fraga Gomes
+ * @copyright 2021-2024 Php7 Alex
+ * @version 1.1.1
+ */
+
 class Session {
 
     public static function msg($name, $text = null, $class = null) {
